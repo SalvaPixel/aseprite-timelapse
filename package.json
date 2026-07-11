@@ -1,0 +1,15 @@
+{
+  "name": "timelapse-recorder",
+  "displayName": "Timelapse Recorder",
+  "description": "Auto-records a CSP/Procreate-style timelapse of your artwork and compiles it to an upscaled GIF (+ MP4 via ffmpeg), then cleans up the frames.",
+  "version": "1.8.0",
+  "author": { "name": "Aadil" },
+  "publisher": "aadil",
+  "license": "MIT",
+  "categories": [ "Scripts" ],
+  "contributes": {
+    "scripts": [
+      { "path": "./timelapse-recorder.lua" }
+    ]
+  }
+}
