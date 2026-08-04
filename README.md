@@ -1,62 +1,44 @@
-# Timelapse Recorder for Aseprite  (v1.8)
+# Timelapse Recorder for Aseprite  (v2.5)
 
-Snapshots the canvas as you draw and builds an upscaled **GIF** with Aseprite's
-own engine — no ffmpeg, no console windows. (ffmpeg/MP4 is opt-in.)
+Library-based timelapse recorder with a tiled thumbnail picker.
 
-Every dialog title shows **v1.8** — if yours doesn't, you're on an old build
-(uninstall in Preferences › Extensions, restart, install, restart).
+Dialog titles show **v2.5** — if not, you're on an old build (Preferences ›
+Extensions → Uninstall → **restart** → install → **restart**).
 
-## Making the timelapse slower / nicer
+## GIF vs MP4 — important
 
-Use **Fixed FPS** mode (Settings → Mode). A longer drawing then makes a longer
-timelapse — the pacing matches the actual process. To make it calmer, **lower
-the FPS** (12 → 6–8). Higher FPS = faster; lower = slower. Set **Hold final
-frame** to ~1.5s for a nice ending beat.
+- **GIF is always built by Aseprite itself** — no ffmpeg, no command line, no
+  console windows. This is the reliable output and it's on by default.
+- **MP4 is optional and uses ffmpeg** (a command-line program). On some Windows
+  setups the OS blocks launching command-line tools (that `cmd.exe … 0xc0000142`
+  error). If MP4 errors for you, **just leave it unticked** — your GIF is
+  unaffected and comes out perfectly.
 
-(Target length mode forces every timelapse to the same duration — usually not
-what you want if your pieces vary in length.)
+v2.5 fixes the bug where ticking MP4 also routed the **GIF** through ffmpeg,
+producing a second, corrupt/unopenable GIF. Now the GIF never touches ffmpeg,
+so you get exactly one, always-openable GIF per piece.
 
-## Re-exporting (don't like the result?)
+## How it works
 
-The **last finished recording's frames are kept**, so you can redo it without
-redrawing:
+1. Recording ON by default, records only **saved sprites** (new sprite records
+   once saved; renames are reflected in the name).
+2. **File › Scripts › Timelapse › Create Timelapse…** → click thumbnail tiles
+   (8 recent + "Show all"), set FPS/upscale/hold, **Create** → one GIF per piece.
+3. Storage: newest **N pieces** kept (Settings → "Max pieces to keep", default
+   40). Delete pieces in the picker, or Clear Recorded Pieces.
 
-1. Settings → change **FPS** (speed) or **Upscale** (size).
-2. **File › Scripts › Timelapse › Re-export Last Timelapse.**
-3. The same timelapse rebuilds at the new pacing/size.
+## Slower / nicer
 
-Older sessions are auto-deleted (only the latest is kept), so the cache doesn't
-pile up.
+Fixed FPS mode, lower the FPS (6–8). Hold final frame ~1.5s.
 
-## Reducing the freeze on stop
+## Menu
 
-The GIF is encoded in one pass (the cost of no ffmpeg). To shrink the hitch:
+Record Timelapse (on/off) · Create Timelapse… · Open Timelapse Folder ·
+Clear Recorded Pieces · Timelapse Settings (v2.5)…
 
-- **Drop Upscale from 8 to 4** — a quarter of the pixels, ~4× faster, still
-  crisp. Biggest win.
-- Raise **Min seconds between snaps** so there are fewer frames.
+## Notes
 
-If you want *zero* freeze, I can add a background-ffmpeg mode (hidden, no window)
-— ask and I'll wire it in.
-
-## Menu (File > Scripts > Timelapse)
-
-- **Record Timelapse** — on/off (on by default)
-- **Build Timelapse From Cache** — make the GIF now (works while recording)
-- **Re-export Last Timelapse** — rebuild the last one at new settings
-- **Open Timelapse Folder**
-- **Clear Frame Cache**
-- **Timelapse Settings (v1.8)…**
-
-## Settings
-
-| Setting | Default | Notes |
-|---|---|---|
-| Min seconds between snaps | `1` | Higher = fewer frames, less freeze. |
-| Upscale factor | `8` | Try `4` for much faster/lighter GIFs. |
-| Mode | Fixed FPS | Keep this; length follows your process. |
-| Fixed FPS | `12` | Lower = slower timelapse. |
-| Hold final frame (sec) | `1.0` | Rest on the finished art. |
-| GIF | on | Aseprite engine (no console). |
-| Use ffmpeg / MP4 | off | Opt-in; may flash consoles. |
-| Auto-delete old frames | on | Keeps the last session for re-export. |
+- Leaving MP4 off means the extension never launches a command line at all — no
+  cmd.exe error possible.
+- If you have an old corrupt GIF from a previous version, just delete it; new
+  ones are always native.

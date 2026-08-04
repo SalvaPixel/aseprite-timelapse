@@ -1,10 +1,10 @@
 {
   "name": "timelapse-recorder",
   "displayName": "Timelapse Recorder",
-  "description": "Auto-records a CSP/Procreate-style timelapse of your artwork and compiles it to an upscaled GIF (+ MP4 via ffmpeg), then cleans up the frames.",
-  "version": "1.8.0",
-  "author": { "name": "Salvatore" },
-  "publisher": "Salvatore",
+  "description": "Records a CSP/Procreate-style timelapse of your pixel art as you draw, banks each saved piece in a library, and exports GIFs (and optional MP4) from a tiled thumbnail picker.",
+  "version": "2.5.0",
+  "author": { "name": "SalvaPixel" },
+  "publisher": "SalvaPixel",
   "license": "MIT",
   "categories": [ "Scripts" ],
   "contributes": {
